@@ -22,13 +22,23 @@ export const ContactForm = (): JSX.Element => {
     const [message, setMessage] = useState("");
 
 
-
+    const [submitting, setSubmitting] = useState(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm<InputsType>({
         resolver: zodResolver(contactFormSchema)
     });
 
-    const onSubmit: SubmitHandler<InputsType> = (data) => console.log(data);
+    const onSubmit: SubmitHandler<InputsType> = (data) => {
+        setSubmitting(true);
+        console.log(data);
+        setTimeout(() => {
+            setSubmitting(false);
+            setName("");
+            setEmail("");
+            setSubject("");
+            setMessage("");
+        }, 3000);
+    }
 
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,9 +60,10 @@ export const ContactForm = (): JSX.Element => {
 
     return (
         <section
-            className="bg-white rounded-xl 
+            className="bg-white rounded-xl relative
            shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px]
             p-4 md:p-8 py-6
+            overflow-hidden
            
             ">
             <div className="mb-8 flex flex-col gap-4">
@@ -145,6 +156,16 @@ export const ContactForm = (): JSX.Element => {
                         >Contact Us</button>
                     </div>
                 </form>
+            </div>
+            <div
+            className={`bg-green-500 flex flex-col justify-center items-center top-0 bottom-0 left-0 right-0 p-4
+            absolute
+           ${submitting ? "opacity-100" : "hidden"} 
+            `}
+            >
+                <p >
+                    We&apos;ll get back to you within 24 hours.
+                </p>
             </div>
         </section>
     )
