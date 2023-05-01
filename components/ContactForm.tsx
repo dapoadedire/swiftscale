@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler, UseFormRegister } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-
+import Image from "next/image";
 
 const contactFormSchema = z.object({
     name: z.string().nonempty({ message: "Name is required" }),
@@ -22,13 +22,15 @@ export const ContactForm = (): JSX.Element => {
     const [message, setMessage] = useState("");
 
 
-    const [submitting, setSubmitting] = useState(false);
+    const [submitting, setSubmitting] = useState(false);   
 
     const { register, handleSubmit, formState: { errors } } = useForm<InputsType>({
         resolver: zodResolver(contactFormSchema)
     });
 
     const onSubmit: SubmitHandler<InputsType> = (data) => {
+        setSubmitting(true);
+        // {
         setSubmitting(true);
         console.log(data);
         setTimeout(() => {
@@ -39,6 +41,7 @@ export const ContactForm = (): JSX.Element => {
             setMessage("");
         }, 3000);
     }
+       
 
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,14 +59,14 @@ export const ContactForm = (): JSX.Element => {
     const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setMessage(e.target.value);
     }
-
-
     return (
         <section
+         
             className="bg-white rounded-xl relative
            shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px]
             p-4 md:p-8 py-6
             overflow-hidden
+            
            
             ">
             <div className="mb-8 flex flex-col gap-4">
@@ -94,10 +97,7 @@ export const ContactForm = (): JSX.Element => {
                             value={name}
                             onChange={(e) => handleNameChange(e)}
                             error={errors.name?.message}
-
                         />
-
-
                         <Input
                             register={register}
                             label="Your email"
@@ -158,14 +158,19 @@ export const ContactForm = (): JSX.Element => {
                 </form>
             </div>
             <div
-            className={`bg-green-500 flex flex-col justify-center items-center top-0 bottom-0 left-0 right-0 p-4
+            className={`bg-white flex flex-col justify-center items-center top-0 bottom-0 left-0 right-0 p-4
             absolute
            ${submitting ? "opacity-100" : "hidden"} 
             `}
             >
-                <p >
-                    We&apos;ll get back to you within 24 hours.
+                <Image src="/images/checked.gif" width={200} height={200} alt="Submitting" />
+                <p 
+                className="text-black text-2xl font-medium p-4 text-center"
+                >
+                    We have received your message and will get back to you soon!
+                    
                 </p>
+               
             </div>
         </section>
     )
@@ -200,7 +205,6 @@ const Input = ({ register, name, label, required, type, placeholder, value, onCh
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
-                // required={required}
                 className={`border border-gray-300 rounded-md p-2
                 focus:outline-none
                 focus:border-gray-400
