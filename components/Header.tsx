@@ -1,3 +1,4 @@
+import React from "react"
 import { playfair } from "./Copy"
 export const Header = (): JSX.Element => {
 
