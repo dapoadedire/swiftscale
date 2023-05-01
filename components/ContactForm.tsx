@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, UseFormRegister } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-
 
 
 const contactFormSchema = z.object({
@@ -153,24 +152,20 @@ export const ContactForm = (): JSX.Element => {
 
 
 type InputProps = {
-    register: any,
+    register: UseFormRegister<InputsType>,
     label: string,
-    name: string,
+    name: keyof InputsType,
     required?: boolean,
     type: string,
     placeholder: string,
     value: string,
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    error: any
+    error: string | undefined
 }
 
 const Input = ({ register, name, label, required, type, placeholder, value, onChange, error }: InputProps) => {
     return (
-        <div
-            className="flex flex-col gap-1
-        mb-5
-        "
-        >
+        <div className="flex flex-col gap-1 mb-5">
             <label htmlFor={label}
                 className="text-gray-700 font-medium mb-1"
             >{label}
