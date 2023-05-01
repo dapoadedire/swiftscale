@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
 
-const schema = z.object({
+
+const contactFormSchema = z.object({
     name: z.string().nonempty({ message: "Name is required" }),
     email: z.string().email({ message: "Invalid email" }),
     subject: z.string().nonempty({ message: "Subject is required" }),
     message: z.string().nonempty({ message: "Message is required" }),
 });
 
+type InputsType = z.infer<typeof contactFormSchema>;
 
 
 export const ContactForm = (): JSX.Element => {
@@ -23,10 +25,11 @@ export const ContactForm = (): JSX.Element => {
 
 
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: zodResolver(schema)
+    const { register, handleSubmit, formState: { errors } } = useForm<InputsType>({
+        resolver: zodResolver(contactFormSchema)
     });
 
+    const onSubmit: SubmitHandler<InputsType> = (data) => console.log(data);
 
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,7 +68,7 @@ export const ContactForm = (): JSX.Element => {
             </div>
             <div>
                 <form
-                    onSubmit={handleSubmit((data) => console.log(data))}
+                    onSubmit={handleSubmit(onSubmit)}
                 >
                     <div
                         className=" grid grid-cols-1 md:grid-cols-2 gap-x-4 "
