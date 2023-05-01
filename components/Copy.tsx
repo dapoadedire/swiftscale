@@ -7,8 +7,10 @@ export const playfair = Playfair_Display({
 
 export const Copy = (): JSX.Element => {
     return (
-        <section className="p-2 md:p-8 md:pl-0" >
-            <div className="mb-8">
+        <section className="p-2 md:p-8 md:pl-0
+       
+        " >
+            <div className="mb-20">
                 <h4 className="text-gray-600 font-semibold uppercase">
                     Streamline your business processes with ease
                 </h4>

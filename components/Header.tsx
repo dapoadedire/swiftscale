@@ -1,12 +1,19 @@
 import React from "react"
-import { playfair } from "./Copy"
+import { playfair } from "./Copy";
+
+
+
 export const Header = (): JSX.Element => {
 
+
+  
 
     return (
         <header
         className='flex justify-between items-center
         px-6 md:px-16 py-8 md:py-16
+       
+        
      '
         >
             <div>
