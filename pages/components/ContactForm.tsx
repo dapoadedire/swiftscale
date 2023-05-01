@@ -1,8 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 
 
-export const ContactForm = (): JSX.Element => {
+export const ContactForm = () => {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -40,15 +40,12 @@ export const ContactForm = (): JSX.Element => {
 
 
     return (
-        <section
-            className="bg-white rounded-2xl shadow-md p-4 md:p-8 py-6">
-            <div className="mb-8 flex flex-col gap-4">
-                <h2 className="text-3xl font-semibold text-black" >
+        <div>
+            <div>
+                <h2>
                     Contact Us
                 </h2>
-                <p
-                className="text-gray-500"
-                                >
+                <p>
                     Want early acess? Reach out to us!
                 </p>
             </div>
@@ -56,21 +53,19 @@ export const ContactForm = (): JSX.Element => {
                 <form
                 onSubmit={(e) => handleSubmit(e)}
                 >
-                    <div
-                    className=" grid grid-cols-1 md:grid-cols-2 gap-x-4 "
-                    >
-                        
+                    <div>
+                        <div>
                             <Input
                                 label="Your name"
                                 required={true}
                                 type="text"
-                                placeholder="Enter your name"
+                                placeholder="Enter your ame"
                                 value={name}
                                 onChange={(e) => handleNameChange(e)}
 
                             />
-                        
-                        
+                        </div>
+                        <div>
                             <Input
                                 label="Your email"
                                 required={true}
@@ -80,8 +75,8 @@ export const ContactForm = (): JSX.Element => {
                                 onChange={(e) => handleEmailChange(e)}
                             />
                         </div>
-                   
-                    
+                    </div>
+                    <div>
                         <Input
                             label="Subject"
                             required={true}
@@ -91,34 +86,22 @@ export const ContactForm = (): JSX.Element => {
                             onChange={(e) => handleSubjectChange(e)}
                         />
 
-                    
-                    <div
-                    className="flex flex-col gap-2 mb-10"
-                    >
-                        <label htmlFor="message"
-                        className="text-gray-700 font-medium mb-1"
-                        >Message  <span
-                            className="text-primary"
-                        >*</span></label>
-                        <textarea name="message" id="message" cols={30} rows={7}
+                    </div>
+                    <div>
+                        <label htmlFor="message">Message</label>
+                        <textarea name="message" id="message" cols={30} rows={10}
                             value={message}
                             onChange={(e) => handleMessageChange(e)}
-                            className="border border-gray-300 rounded-md p-2 focus:outline-none
-                focus:border-primary"
                         ></textarea>
 
                     </div>
 
-                    <div
-                        className="flex flex-col gap-2 mb-4"
-                    >
-                        <button type="submit"
-                        className="bg-primary text-white rounded-md py-4 px-6"
-                        >Contact Us</button>
+                    <div>
+                        <button type="submit">Send</button>
                     </div>
                 </form>
             </div>
-        </section>
+        </div>
     )
 };
 
@@ -134,28 +117,15 @@ type InputProps = {
 
 const Input = ({ label, required, type, placeholder, value, onChange }: InputProps) => {
     return (
-        <div
-        className="flex flex-col gap-1
-        mb-5
-        "
-        >
-            <label htmlFor={label}
-            className="text-gray-700 font-medium mb-1"
-            >{label}
-                {required && <span
-                className="text-primary"
-                >*</span>}
+        <div>
+            <label htmlFor={label}>{label}
+                {required && <span>*</span>}
             </label>
             <input
                 type={type}
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
-                required={required}
-                className="border border-gray-300 rounded-md p-2
-                focus:outline-none
-                focus:border-primary
-                "
             />
         </div>
     )

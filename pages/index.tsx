@@ -10,7 +10,7 @@ export default function Home() {
     <main className={` bg-secondary min-h-screen ${inter.className}`}>
       <Header />
       <div
-      className='grid grid-cols-1 md:grid-cols-2 gap-10 px-8 md:px-16 py-16 md:py-32'
+      className='grid grid-cols-1 md:grid-cols-2 gap-10 px-4 md:px-16 py-8 md:py-16'
       >
         <Copy />
         <ContactForm />
